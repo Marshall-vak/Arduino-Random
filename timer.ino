@@ -64,12 +64,18 @@ void setup() {
 
 void loop() {
   // print the time to the Serial Monitor
-  int seconds = millis() / 1000;
-  int minutes = seconds / 60;
-  int hours = minutes / 60;
-  int days = hours / 24;
-  int months = days / 30;
-  int years = months / 12;
+  int seconds = 0;
+  int minutes = 0;
+  int hours = 0;
+  int days = 0;
+  int months = 0;
+  int years = 0;
+
+  seconds = millis() / 1000; - minutes * 60;
+  minutes = seconds / 60 - hours * 60;
+  hours = minutes / 60 - days * 24;
+  days = hours / 24 - months * 30;
+  months = days / 30; //- years * 12;
 
   int overflows = 0;
 
@@ -84,7 +90,9 @@ void loop() {
 
   if (1000 > millis()){
     lcd.print("Init...");
+    Serial.print("Init...");
   } else {
     lcd.print(String(months) + "m " + String(days) + "d " + String(hours) + "h " + String(minutes) + "m " + String(seconds) + "s");
+    Serial.print(String(years) + "y " + String(months) + "m " + String(days) + "d " + String(hours) + "h " + String(minutes) + "m " + String(seconds) + "s");
   }
 }
